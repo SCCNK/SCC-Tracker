@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SCC Project Tracker Dashboard 2026</title>
 <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
-<script>window.Plotly||document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/2.27.0/plotly.min.js"><'+'\/'+'script>')</script>
+<script>window.Plotly||document.write('<scr'+'ipt src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/2.27.0/plotly.min.js"><'+'/scr'+'ipt>')</script>
 <style>
 /* ── Reset & Base ── */
 *{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI',Calibri,sans-serif}
@@ -234,12 +234,13 @@ td{padding:8px 12px;border-bottom:1px solid #f0f2f7;vertical-align:top}
     <div style="width:1px;height:32px;background:rgba(255,255,255,.25)"></div>
     <div>
       <div class="topbar-title">&#128202; SCC PROJECT TRACKER <span>2026</span></div>
-      <div class="topbar-sub">Ericsson Site Competence Center &nbsp;&bull;&nbsp; EPP &nbsp;&bull;&nbsp; ISS &nbsp;&bull;&nbsp; I&amp;IC &nbsp;&bull;&nbsp; Refreshed: 11 Aug 2026  23:48</div>
+      <div class="topbar-sub">Ericsson Site Competence Center &nbsp;&bull;&nbsp; EPP &nbsp;&bull;&nbsp; ISS &nbsp;&bull;&nbsp; I&amp;IC &nbsp;&bull;&nbsp; Refreshed: 12 Aug 2026  01:20</div>
     </div>
   </div>
     <div style="display:flex;gap:10px">
       <button onclick="location.reload()" style="padding:6px 14px;background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.3);border-radius:20px;cursor:pointer;font-weight:700;font-size:11px">&#8635; Refresh</button>
-      <button onclick="exportDashboardPPT()" style="padding:6px 14px;background:rgba(255,165,0,.25);color:#fff;border:1px solid rgba(255,165,0,.4);border-radius:20px;cursor:pointer;font-weight:700;font-size:11px">&#128196; Export PPT</button>
+      <button id="aem-btn" onclick="exportAEMSlides()" style="padding:6px 14px;background:rgba(255,165,0,.3);color:#fff;border:1px solid rgba(255,165,0,.5);border-radius:20px;cursor:pointer;font-weight:700;font-size:11px">&#128196; Export AEM PPT</button>
+      <button id="mbr-btn" onclick="exportMBR()" style="padding:6px 14px;background:rgba(0,176,80,.3);color:#fff;border:1px solid rgba(0,176,80,.5);border-radius:20px;cursor:pointer;font-weight:700;font-size:11px">&#128203; Export MBR</button>
       <div class="topbar-right">&#128274; Ericsson Internal</div>
     </div>
 </div>
@@ -1576,7 +1577,7 @@ function renderAI() {
 }
 </script>
 
-<div class="footer">&#9670; SCC Project Tracker 2026 &nbsp;&bull;&nbsp; Ericsson SCC &nbsp;&bull;&nbsp; EPP &middot; ISS &middot; I&amp;IC &nbsp;&bull;&nbsp; 11 Aug 2026  23:48</div>
+<div class="footer">&#9670; SCC Project Tracker 2026 &nbsp;&bull;&nbsp; Ericsson SCC &nbsp;&bull;&nbsp; EPP &middot; ISS &middot; I&amp;IC &nbsp;&bull;&nbsp; 12 Aug 2026  01:20</div>
 </div>
 
 <script>
@@ -1694,51 +1695,50 @@ function renderChart(id, chartObj) {
   plot(id, chartObj.data, chartObj.layout);
 }
 
-function exportDashboardPPT() {
-  const w = window.open('', '_blank');
-  const now = new Date().toLocaleDateString();
-  const pages = [
-    {id:'page-home',       title:'Home'},
-    {id:'page-ongoing',    title:'Ongoing Projects'},
-    {id:'page-kanban',     title:'Kanban Board'},
-    {id:'page-released',   title:'Released Products'},
-    {id:'page-phaseout',   title:'Phase Out'},
-    {id:'page-efficiency', title:'Efficiency'},
-    {id:'page-developer',  title:'Developer Dashboard'},
-    {id:'page-ai',         title:'AI Analysis'},
-  ];
-  let slides = '';
-  pages.forEach(function(p) {
-    const el = document.getElementById(p.id);
-    if (!el) return;
-    // Temporarily show page to capture content
-    const wasHidden = !el.classList.contains('active');
-    if (wasHidden) el.style.display = 'block';
-    const content = el.innerHTML
-      .replace(/<script[\s\S]*?<\/script>/gi, '')
-      .replace(/<canvas[^>]*>[\s\S]*?<\/canvas>/gi, '[Chart]');
-    if (wasHidden) el.style.display = '';
-    slides += `
-      <div style="page-break-after:always;padding:32px 40px;font-family:Segoe UI,Arial,sans-serif;min-height:100vh">
-        <div style="background:linear-gradient(90deg,#003366,#0082C8);color:#fff;padding:14px 24px;border-radius:10px;margin-bottom:20px;display:flex;justify-content:space-between;align-items:center">
-          <div style="font-size:18px;font-weight:800">${p.title}</div>
-          <div style="font-size:11px;opacity:.8">SCC Project Tracker 2026 &nbsp;|&nbsp; ${now}</div>
-        </div>
-        <div style="font-size:11px">${content}</div>
-      </div>`;
-  });
-  w.document.write(`<!DOCTYPE html><html><head><title>SCC Dashboard Export</title>
-    <style>*{box-sizing:border-box}body{margin:0;font-family:Segoe UI,Arial,sans-serif;font-size:11px}
-    table{width:100%;border-collapse:collapse;font-size:10px}
-    th{background:#003366;color:#fff;padding:6px 8px;text-align:left}
-    td{padding:5px 8px;border-bottom:1px solid #eee}
-    tr:nth-child(even){background:#f8faff}
-    .page{display:block!important}
-    @media print{@page{size:A4 landscape;margin:10mm}}
-    </style></head><body>${slides}</body></html>`);
-  w.document.close();
-  setTimeout(function() { w.print(); }, 800);
+function exportMBR() {
+  var apiBase = window.CT_API_BASE || 'http://localhost:8765';
+  var btn = document.getElementById('mbr-btn');
+  if(btn) { btn.textContent = 'Generating...'; btn.disabled = true; }
+  var xhr = new XMLHttpRequest();
+  xhr.open('POST', apiBase + '/generate_mbr', true);
+  xhr.setRequestHeader('Content-Type', 'application/json');
+  xhr.onload = function() {
+    if(btn) { btn.textContent = 'Export MBR'; btn.disabled = false; }
+    try {
+      var d = JSON.parse(xhr.responseText);
+      if(d.ok) alert('Monthly Business Report generated!\nHTML: ' + d.html + '\nWord: ' + d.docx);
+      else alert('Error: ' + d.error);
+    } catch(e) { alert('Response error: ' + xhr.responseText); }
+  };
+  xhr.onerror = function() {
+    if(btn) { btn.textContent = 'Export MBR'; btn.disabled = false; }
+    alert('Task Writer API not running.\n\nPlease run:\n  python task_writer.py\n\nOr run directly:\n  python iic_business_report.py');
+  };
+  xhr.send('{}');
 }
+
+function exportAEMSlides() {
+  var apiBase = window.CT_API_BASE || 'http://localhost:8765';
+  var btn = document.getElementById('aem-btn');
+  if(btn) { btn.textContent = 'Generating...'; btn.disabled = true; }
+  var xhr = new XMLHttpRequest();
+  xhr.open('POST', apiBase + '/generate_aem_ppt', true);
+  xhr.setRequestHeader('Content-Type', 'application/json');
+  xhr.onload = function() {
+    if(btn) { btn.textContent = 'Export AEM PPT'; btn.disabled = false; }
+    try {
+      var d = JSON.parse(xhr.responseText);
+      if(d.ok) alert('AEM Slides 21-25 generated!\nFile: ' + d.path);
+      else alert('Error: ' + d.error);
+    } catch(e) { alert('Response error: ' + xhr.responseText); }
+  };
+  xhr.onerror = function() {
+    if(btn) { btn.textContent = 'Export AEM PPT'; btn.disabled = false; }
+    alert('Task Writer API not running.\n\nPlease run:\n  python task_writer.py\n\nOr run directly:\n  python generate_aem_ppt.py');
+  };
+  xhr.send('{}');
+}
+
 
 
 document.addEventListener('DOMContentLoaded', function() {
