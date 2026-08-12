@@ -234,7 +234,7 @@ td{padding:8px 12px;border-bottom:1px solid #f0f2f7;vertical-align:top}
     <div style="width:1px;height:32px;background:rgba(255,255,255,.25)"></div>
     <div>
       <div class="topbar-title">&#128202; SCC PROJECT TRACKER <span>2026</span></div>
-      <div class="topbar-sub">Ericsson Site Competence Center &nbsp;&bull;&nbsp; EPP &nbsp;&bull;&nbsp; ISS &nbsp;&bull;&nbsp; I&amp;IC &nbsp;&bull;&nbsp; Refreshed: 12 Aug 2026  01:20</div>
+      <div class="topbar-sub">Ericsson Site Competence Center &nbsp;&bull;&nbsp; EPP &nbsp;&bull;&nbsp; ISS &nbsp;&bull;&nbsp; I&amp;IC &nbsp;&bull;&nbsp; Refreshed: 12 Aug 2026  08:55</div>
     </div>
   </div>
     <div style="display:flex;gap:10px">
@@ -281,10 +281,10 @@ td{padding:8px 12px;border-bottom:1px solid #f0f2f7;vertical-align:top}
   <!-- Toggle Bar -->
   <div class="toggle-bar">
     <span class="toggle-label">DEPARTMENT:</span>
-    <button class="dept-btn active" data-dept="EPP"  onclick="toggleDept('EPP',this)">EPP</button>
-    <button class="dept-btn"        data-dept="ISS"  onclick="toggleDept('ISS',this)">ISS</button>
+    <button class="dept-btn all active" data-dept="ALL"  onclick="toggleDept('ALL',this)">ALL</button>
     <button class="dept-btn"        data-dept="I&amp;IC" onclick="toggleDept('I&IC',this)">I&amp;IC</button>
-    <button class="dept-btn all"    data-dept="ALL"  onclick="toggleDept('ALL',this)">ALL</button>
+    <button class="dept-btn"        data-dept="EPP"  onclick="toggleDept('EPP',this)">EPP</button>
+    <button class="dept-btn"        data-dept="ISS"  onclick="toggleDept('ISS',this)">ISS</button>
   </div>
 
   <!-- KPI Cards per dept -->
@@ -364,7 +364,7 @@ function toggleDept(dept, btn) {
 }
 
 // Init
-window.activeDepts = ['EPP'];
+window.activeDepts = ['EPP','ISS','I&IC'];
 renderHomeKPIs(window.activeDepts);
 </script>
 
@@ -1577,7 +1577,7 @@ function renderAI() {
 }
 </script>
 
-<div class="footer">&#9670; SCC Project Tracker 2026 &nbsp;&bull;&nbsp; Ericsson SCC &nbsp;&bull;&nbsp; EPP &middot; ISS &middot; I&amp;IC &nbsp;&bull;&nbsp; 12 Aug 2026  01:20</div>
+<div class="footer">&#9670; SCC Project Tracker 2026 &nbsp;&bull;&nbsp; Ericsson SCC &nbsp;&bull;&nbsp; EPP &middot; ISS &middot; I&amp;IC &nbsp;&bull;&nbsp; 12 Aug 2026  08:55</div>
 </div>
 
 <script>
